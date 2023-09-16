@@ -16,10 +16,20 @@ repositories {
 }
 
 dependencies {
+
+    // Spring
+    implementation 'org.springframework.integration:spring-integration-ip'
+
+    // Spring Boot
     implementation 'org.springframework.boot:spring-boot-starter-integration'
-    implementation 'org.springframework.integration:spring-integration-file'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // Lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'org.springframework.integration:spring-integration-test'
+//    testImplementation 'org.springframework.integration:spring-integration-test'
 }
 
 tasks.named('test') {
