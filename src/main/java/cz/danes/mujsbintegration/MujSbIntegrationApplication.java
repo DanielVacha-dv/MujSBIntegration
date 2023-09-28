@@ -19,10 +19,10 @@ public class MujSbIntegrationApplication implements CommandLineRunner {
     MujSupplier mujSupplier;
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         log.info("Application Started !!");
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Please enter q and press <enter> to exit the program: ");
+        System.out.print("Please enter q and press <enter> to exit the program, \n write message + press enter  to send them : ");
         while (true) {
             String input = scanner.nextLine();
             mujSupplier.setMessage(input);

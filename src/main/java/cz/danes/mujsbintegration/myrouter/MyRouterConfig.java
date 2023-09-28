@@ -14,33 +14,37 @@ import org.springframework.messaging.MessageHandler;
 
 import java.util.function.Supplier;
 
+/**
+ * create router with different configuration
+ */
 @Configuration
 @EnableIntegration
 @Slf4j
 public class MyRouterConfig {
 
-
-
-//    @Bean
-//    public IntegrationFlow myIntegrationFlowRouterContent1(Supplier<Message<String>> messageSupplier) {
-//        return IntegrationFlow.fromSupplier(messageSupplier, e -> e.poller(p -> p.fixedRate(10000)))
-//                .channel(MessageChannels.queue())
-//                .<Object, Class<?>>route(Object::getClass, r -> r
-//                        .subFlowMapping("even".getClass(), sf -> sf.channel("akanal"))
-//                        .subFlowMapping("odd", sf -> sf.channel("bkanal"))
-//                ).get();
-//    }
-//    @Bean
-//    public IntegrationFlow myIntegrationFlowRouterContent(Supplier<Message<String>> messageSupplier) {
-//        return IntegrationFlow.fromSupplier(messageSupplier, e -> e.poller(p -> p.fixedRate(10000)))
-//                .channel(MessageChannels.queue())
-//                .route(Message.class, m -> m
-//                        .channelMapping(String.class, "stringChannel")
-//                        .channelMapping(String.class, "stringChannel2"))
-//                .get();
-//    }
-
     @Bean
+    public IntegrationFlow myIntegrationFlowRouterContent(Supplier<Message<String>> messageSupplier) {
+        return IntegrationFlow.fromSupplier(messageSupplier, e -> e.poller(p -> p.fixedRate(10000)))
+                .route(String.class, m -> m.length() % 2 == 0 ?
+                        "stringChannel2Su" : "stringChannel1Li")
+                .get();
+    }
+
+    @Bean(name = "stringChannelHandler1li")
+    @ServiceActivator(inputChannel = "stringChannel1Li")
+    public MessageHandler stringChannel1Li() {
+        MessageHandler m = message -> System.out.println("1 odd  " + message.getPayload());
+        return m;
+    }
+
+    @Bean(name = "stringChannelHandler2Su")
+    @ServiceActivator(inputChannel = "stringChannel2Su")
+    public MessageHandler stringChannel2Su() {
+        MessageHandler m = message -> System.out.println("2 even " + message.getPayload());
+        return m;
+    }
+
+    //    @Bean
     public IntegrationFlow myIntegrationFlowRouterRecipient(Supplier<Message<String>> messageSupplier) {
         return IntegrationFlow.fromSupplier(messageSupplier, e -> e.poller(p -> p.fixedRate(10000)))
                 .routeToRecipients(r -> r
