@@ -10,6 +10,10 @@ import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.ip.dsl.Tcp;
 import org.springframework.messaging.MessageHandler;
 
+/**ł
+ *  Config bean for service activator with  input channel , and output-channel which use
+ *  response-channel and send message back to putty
+ */
 @Configuration
 @EnableIntegration
 public class TcpConfig {
