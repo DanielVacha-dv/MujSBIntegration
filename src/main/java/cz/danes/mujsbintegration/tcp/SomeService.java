@@ -1,4 +1,4 @@
-package cz.danes.mujsbintegration;
+package cz.danes.mujsbintegration.tcp;
 
 import org.springframework.integration.annotation.MessageEndpoint;
 import org.springframework.integration.annotation.ServiceActivator;
@@ -13,7 +13,7 @@ import java.nio.charset.StandardCharsets;
 public class SomeService {
 
     // when no output-channel defined use response channel as output channel
-    @ServiceActivator//(outputChannel = "stringOutputChannel")
+    @ServiceActivator
     public String exampleHandler(Message message) {
         String s = new String((byte[]) message.getPayload(), StandardCharsets.UTF_8);
         System.out.println("exampleHandler message:" + s);

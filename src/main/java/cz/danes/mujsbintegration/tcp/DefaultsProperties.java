@@ -9,23 +9,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class DefaultsProperties {
 
-    private int port = 12345;
-//    private final TcpServerProperties tcpServer;
-//    private final SvakJmsProperties svakMbJms;
-//    private final SvakJmsProperties svakKvJms;
+    private final int port = 12345;
 
-//    @Getter
-//    @RequiredArgsConstructor
-//    public static class TcpServerProperties {
-//        private int port = 21151;
-//
-//        public TcpServerProperties(int i) {
-//            port = i;
-//        }
-//    }
-//
-//    @Bean
-//    public TcpServerProperties tcpServerProperties() {
-//        return new TcpServerProperties(21151);
-//    }
 }
