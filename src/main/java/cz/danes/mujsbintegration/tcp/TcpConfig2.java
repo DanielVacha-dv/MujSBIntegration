@@ -31,22 +31,22 @@ public class TcpConfig2 {
 
 
     /**
-     * @return
+     * @return IntegrationFlow object
      */
     @Bean
-    public IntegrationFlow tcpServer() {
+    public IntegrationFlow mainFlow() {
         return IntegrationFlow.from(Tcp.inboundGateway(Tcp.netServer(serverPort)))
                 .channel("myInputChannel")
+                // MessageEndpoint look after incoming messages and call its function exampleHandlerEndpoint()
                 .handle(handlerEndpoint, "exampleHandlerEndpoint")
                 .get();
     }
 
 
-
     @ServiceActivator(inputChannel = "myOutputChannel")
     public void consumeStringMessage(String message) {
         System.out.println("Received message from myOutputChannel : " + message);
-        String s = tcpGateway.sendAndReceive(message);
+        tcpGateway.sendAndReceive(message);
     }
 
 
